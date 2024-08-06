@@ -6,8 +6,14 @@ import Image from "next/image";
 import { Card, CardContent } from "./_components/ui/card";
 import { Badge } from "./_components/ui/badge";
 import { Avatar, AvatarImage } from "./_components/ui/avatar";
+import { db } from "./_lib/prisma";
+import BarbershopItem from "./_components/barbershop-item";
 
-export default function Home() {
+const Home = async () => {
+  //Chamar o banco de dados
+  const barbershops = await db.barbershop.findMany({})
+
+
   return (
     <div>
       <Header />
@@ -26,9 +32,12 @@ export default function Home() {
           <Image alt="Agende nos melhores  com FSW Barber" src="/banner-01.png" fill className="object-cover rounded-xl" />
         </div>
 
-        <Card className="mt-6">
+        <h2 className="uppercase text-gray-400 font-bold text-xs mt-6 mb-4">Agendamentos</h2>
+
+
+        <Card>
           <CardContent className="flex justify-between p-0">
-             <div className="flex flex-col gap-2 py-5 pl-5">
+            <div className="flex flex-col gap-2 py-5 pl-5">
               <Badge className="w-fit">Confirmado</Badge>
               <h3 className="font-semibold">Corte de Cabelo</h3>
 
@@ -38,16 +47,28 @@ export default function Home() {
                 </Avatar>
                 <p className="text-sm">Barbearia FSW</p>
               </div>
-             </div>
+            </div>
 
-             <div className="flex flex-col items-center justify-center px-5 border-l-2 border-solid">
+            <div className="flex flex-col items-center justify-center px-5 border-l-2 border-solid">
               <p className="text-sm">Agosto</p>
               <p className="text-2xl">05</p>
               <p className="text-sm">20:00</p>
-             </div>
+            </div>
           </CardContent>
         </Card>
+
+        <h2 className="uppercase text-gray-400 font-bold text-xs mt-6 mb-4">Recomendados</h2>
+        
+        <div className="flex gap-4 overflow-auto [&::-webkit-scrollbar]:hidden">
+          {barbershops.map(barbershop => (
+            <BarbershopItem key={barbershop.id} barbershop={barbershop} />
+          ))}
+        </div>
+        
       </div>
     </div>
   )
 }
+
+
+export default Home;
