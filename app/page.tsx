@@ -7,9 +7,13 @@ import { quickSearchOptions } from "./_constants/search";
 import BookingItem from "./_components/booking-item";
 import Search from "./_components/search";
 import Link from "next/link";
+import { getServerSession } from "next-auth";
+import { authOptions } from "./_lib/auth";
 
 
 const Home = async () => {
+  const session = await getServerSession(authOptions)
+
   //Chamar o banco de dados
   const barbershops = await db.barbershop.findMany({})
   const popularBarbershops = await db.barbershop.findMany({
@@ -17,6 +21,27 @@ const Home = async () => {
       name: "desc",
     }
   })
+
+  const confirmedBookins = session?.user
+    ? await db.booking.findMany({
+      where: {
+        userId: (session.user as any).id,
+        date: {
+          gte: new Date(),
+        },
+      },
+      include: {
+        service: {
+          include: {
+            barbershop: true
+          },
+        },
+      },
+      orderBy:  {
+        date: "asc",
+      }
+    })
+    : []
 
 
   return (
@@ -47,7 +72,12 @@ const Home = async () => {
           <Image alt="Agende nos melhores  com FSW Barber" src="/banner-01.png" fill className="object-cover rounded-xl" />
         </div>
 
-        <BookingItem />
+        <h2 className="uppercase text-gray-400 font-bold text-xs mt-6 mb-4">Agendamentos</h2>
+        <div className="flex overflow-x-auto gap-3 [&::-webkit-scrollbar]:hidden">
+          {confirmedBookins.map((booking) => (
+            <BookingItem key={booking.id} booking={booking} />
+          ))}
+        </div>
 
         <h2 className="uppercase text-gray-400 font-bold text-xs mt-6 mb-4">Recomendados</h2>
 

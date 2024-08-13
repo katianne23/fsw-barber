@@ -60,10 +60,13 @@ const SiderbarSheet = () => {
                         </Link>
                     </Button>
                 </SheetClose>
-                <Button className="justify-start gap-2" variant="ghost">
-                    <CalendarIcon size={18} />
-                    Agendamento
+                <Button className="justify-start gap-2" variant="ghost" asChild>
+                    <Link href="/bookings">
+                        <CalendarIcon size={18} />
+                        Agendamentos
+                    </Link>
                 </Button>
+
             </div>
 
             <div className="flex flex-col gap-2 border-b border-solid py-5">
@@ -84,15 +87,17 @@ const SiderbarSheet = () => {
                 ))}
             </div>
 
-            {data?.user && (
-                <div className="flex flex-col  gap-2 py-5">
-                    <Button variant="ghost" className="justify-start gap-2" onClick={handleLogoutClick}>
-                        <LogOutIcon size={18} />
-                        Sair da Conta
-                    </Button>
-                </div>
-            )}
-        </SheetContent>
+            {
+                data?.user && (
+                    <div className="flex flex-col  gap-2 py-5">
+                        <Button variant="ghost" className="justify-start gap-2" onClick={handleLogoutClick}>
+                            <LogOutIcon size={18} />
+                            Sair da Conta
+                        </Button>
+                    </div>
+                )
+            }
+        </SheetContent >
 
     );
 }
