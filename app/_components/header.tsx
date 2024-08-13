@@ -4,7 +4,7 @@ import Image from "next/image";
 import { MenuIcon } from "lucide-react";
 import { SheetTrigger, Sheet } from "./ui/sheet";
 import { Button } from "./ui/button";
-import SiderbarSheet from "./siderbar-sheet";
+import SidebarSheet from "./siderbar-sheet";
 import Link from "next/link";
 
 
@@ -21,7 +21,7 @@ const Header = () => {
                         <Button size="icon" variant="outline">
                             <MenuIcon />
                         </Button>
-                        <SiderbarSheet />
+                        <SidebarSheet />
                     </SheetTrigger>
                 </Sheet>
             </CardContent>

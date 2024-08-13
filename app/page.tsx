@@ -80,12 +80,18 @@ const Home = async () => {
           <Image alt="Agende nos melhores  com FSW Barber" src="/banner-01.png" fill className="object-cover rounded-xl" />
         </div>
 
-        <h2 className="uppercase text-gray-400 font-bold text-xs mt-6 mb-4">Agendamentos</h2>
-        <div className="flex overflow-x-auto gap-3 [&::-webkit-scrollbar]:hidden">
-          {confirmedBookins.map((booking) => (
-            <BookingItem key={booking.id} booking={booking} />
-          ))}
-        </div>
+        {confirmedBookins.length > 0 && (
+          <>
+            <h2 className="uppercase text-gray-400 font-bold text-xs mt-6 mb-4">Agendamentos</h2>
+            <div className="flex overflow-x-auto gap-3 [&::-webkit-scrollbar]:hidden">
+              {confirmedBookins.map((booking) => (
+                <BookingItem key={booking.id} booking={booking} />
+              ))}
+            </div>
+          </>
+        )}
+
+
 
         <h2 className="uppercase text-gray-400 font-bold text-xs mt-6 mb-4">Recomendados</h2>
 
