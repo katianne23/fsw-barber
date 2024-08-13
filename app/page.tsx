@@ -9,6 +9,8 @@ import Search from "./_components/search";
 import Link from "next/link";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./_lib/auth";
+import { format } from "date-fns";
+import { ptBR } from "date-fns/locale";
 
 
 const Home = async () => {
@@ -37,7 +39,7 @@ const Home = async () => {
           },
         },
       },
-      orderBy:  {
+      orderBy: {
         date: "asc",
       }
     })
@@ -48,8 +50,14 @@ const Home = async () => {
     <div>
       <Header />
       <div className="p-5">
-        <h2 className="text-xl font-bold">Olá, Felipe!</h2>
-        <p>Terça-feira, 05 de agosto.</p>
+        <h2 className="text-xl font-bold">
+          Olá, {session?.user ? session.user.name : "bem vindo"}!
+        </h2>
+        <p>
+          <span className="capitalize">{format(new Date(), "EEEE, dd ", { locale: ptBR })}</span>
+          de
+          <span className="capitalize"> {format(new Date(), " MMMM ", { locale: ptBR })}</span>
+        </p>
 
         <div className="mt-6">
           <Search />
