@@ -1,32 +1,30 @@
-
-import { Card, CardContent } from "./ui/card";
-import Image from "next/image";
-import { MenuIcon } from "lucide-react";
-import { SheetTrigger, Sheet } from "./ui/sheet";
-import { Button } from "./ui/button";
-import SidebarSheet from "./siderbar-sheet";
-import Link from "next/link";
-
+import Image from "next/image"
+import { Card, CardContent } from "./ui/card"
+import { Button } from "./ui/button"
+import { MenuIcon } from "lucide-react"
+import { Sheet, SheetTrigger } from "./ui/sheet"
+import SiderbarSheet from "./siderbar-sheet"
+import Link from "next/link"
 
 const Header = () => {
-    return (
-        <Card>
-            <CardContent className="p-5 flex flex-row  items-center justify-between">
-                <Link href="/">
-                    <Image src="/logo.png" height={18} width={120} alt="FSW Barber" />
-                </Link>
+  return (
+    <Card>
+      <CardContent className="flex flex-row items-center justify-between p-5">
+        <Link href="/">
+          <Image alt="FSW Barber" src="/logo.png" height={18} width={120} />
+        </Link>
 
-                <Sheet>
-                    <SheetTrigger>
-                        <Button size="icon" variant="outline">
-                            <MenuIcon />
-                        </Button>
-                        <SidebarSheet />
-                    </SheetTrigger>
-                </Sheet>
-            </CardContent>
-        </Card>
-    );
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button size="icon" variant="outline">
+              <MenuIcon />
+            </Button>
+          </SheetTrigger>
+          <SiderbarSheet />
+        </Sheet>
+      </CardContent>
+    </Card>
+  )
 }
 
-export default Header;
+export default Header
